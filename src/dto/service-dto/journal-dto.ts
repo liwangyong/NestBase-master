@@ -1,4 +1,4 @@
-import {IsInt, Min, Max, IsDate} from 'class-validator'
+import {IsInt, Min, Max, IsDate, MinLength} from 'class-validator'
 import {Type} from 'class-transformer'
 import {ApiModelProperty} from '@nestjs/swagger'
 export class JournalServiceDto {
@@ -17,4 +17,17 @@ export class JournalServiceDto {
 	@ApiModelProperty({description: '错误内容', example: '错误'})
 	@Type(() => String)
 	readonly content: string
+}
+class ExampleCase implements JournalServiceDto {
+	level = '1'
+	createdTime = new Date()
+	url = 'www.baidu.com'
+	operator = 'xx'
+	content = 'xx'
+}
+export class JournalArrayServiceDto {
+	@ApiModelProperty({description: '错误内容数组集合', example: [new ExampleCase()]})
+	@Type(() => Array)
+	@MinLength(1, {message: '最起码一条日志'})
+	readonly data: JournalServiceDto[]
 }

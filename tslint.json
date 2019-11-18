@@ -1,0 +1,25 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {
+		"no-unused-expression": true
+	},
+	"emitDecoratorMetadata": true,
+	"experimentalDecorators": true,
+	"rules": {
+		"quotemark": [true, "single"],
+		"member-access": [false],
+        "ordered-imports": [false],
+        "semicolon":[true, "never", "ignore-interfaces"],
+		"max-line-length": [true, 150],
+		"indent": [true, "tabs", 2],
+        "member-ordering": [false],
+        "max-classes-per-file": [false],
+		"no-console": false,
+		"interface-name": [false],
+		"arrow-parens": false,
+		"no-empty": false,
+		"object-literal-sort-keys": false
+	},
+	"rulesDirectory": []
+}

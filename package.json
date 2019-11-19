@@ -30,6 +30,7 @@
     "amqplib": "^0.5.5",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
+    "nestjs-amqp": "^0.1.9",
     "nestjs-config": "^1.4.4",
     "pg": "^7.12.1",
     "postgresql": "0.0.1",

@@ -1,14 +1,17 @@
-import * as amqp from 'amqplib/callback_api'
-import {readFileSync} from 'fs'
-import {join} from 'path'
-import {env} from '../../until/env-unit'
-import {Inject, Injectable} from '@nestjs/common'
+import * as amqp from 'amqplib'
+import {Injectable} from '@nestjs/common'
 import {defaultSelfInfo} from '../../convertConfig/ambient'
+import {JournalArrayServiceDto} from '../../dto/service-dto/journal-dto'
 @Injectable()
 export class RabbitMqMicroService {
 	amqp: any = amqp
+	conn: any
 	constructor() {}
-	amqpConnectCreateChannel() {
-		console.log(defaultSelfInfo())
+	amqpConnectCreateChannel(info: JournalArrayServiceDto) {
+		defaultSelfInfo(async data => {
+			const conn = await this.amqp.connect(data.rabbitmq.url)
+			this.sendToQueue = await conn.createChannel()
+		})
 	}
+	sendToQueue() {}
 }

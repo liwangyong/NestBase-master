@@ -1,8 +1,17 @@
 {
-	"type": "postgres",
-	"host": "localhost",
-	"port": "5432",
-	"username": "root",
-	"password": "123456",
-	"database": "nsetjs"
+	"postgresql": {
+		"type": "postgres",
+		"host": "localhost",
+		"port": "5432",
+		"username": "root",
+		"password": "123456",
+		"database": "nsetjs"
+	},
+	"rabbitmq": {
+		"name": "rabbitmq",
+		"hostname": "localhost",
+		"port": 5672,
+		"username": "apass",
+		"password": "wys122144"
+	}
 }

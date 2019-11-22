@@ -7,7 +7,6 @@ export class JournalExtService {
   rabbitService(data: JournalServiceDto[]) {
         if (data instanceof Array) {
             this.rabbitMqMicroService.rabSendToQueue(data);
-            console.log(88888)
         }
   }
 }

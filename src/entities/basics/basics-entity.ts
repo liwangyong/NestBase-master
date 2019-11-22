@@ -11,8 +11,4 @@ export class BasicEntity extends BaseEntity {
 
 	@Column({type: 'bool', comment: '是否已删除', default: false})
 	deleted: boolean
-	@BeforeInsert()
-	onBeforeInsert(xxx): void {
-		console.log('Is not working fine here', xxx)
-	}
 }

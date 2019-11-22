@@ -14,7 +14,6 @@ export class RabbitMqMicroService {
         private readonly loggerExtService: LoggerExtService,
     ) {}
     onModuleInit() {
-        console.log(4444)
         this.Initialization();
     }
     // 连接

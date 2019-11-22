@@ -39,7 +39,6 @@ export class RabbitMqMicroService {
         channel.consume(queue, this.channelConsume.bind(this), {
             noAck: true,
         });
-        console.log(98999),
         this.channelSendToQueue = channel.sendToQueue.bind(channel);
         global['rabbitMqSend'] = channel.sendToQueue.bind(channel);
         });
@@ -48,7 +47,6 @@ export class RabbitMqMicroService {
     async channelConsume(ctn: any) {
         const msg: string = ctn.content.toString();
         const data: JournalServiceDto[] = JSON.parse(msg)
-        console.log(data)
         if (data instanceof Array) {
             try {
                 await this.loggerExtService.batchEventInsert(data)
@@ -59,7 +57,6 @@ export class RabbitMqMicroService {
     }
     // 发送队列
     rabSendToQueue(msg: JournalServiceDto[]) {
-        console.log('111', this.channelSendToQueue, msg)
         this.channelSendToQueue(this.queue, Buffer.from(JSON.stringify(msg)));
     }
 }

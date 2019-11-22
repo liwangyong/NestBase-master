@@ -2,10 +2,8 @@ import {Controller, Get, Inject, Post, Body} from '@nestjs/common'
 import {ApiUseTags, ApiOperation, ApiOkResponse, ApiImplicitBody} from '@nestjs/swagger'
 import {LoggerExtService} from '../services/entities/logger-service'
 import {ResultSend} from '../dto/result-dto'
-import {JournalServiceDto, JournalArrayServiceDto} from '../dto/service-dto/journal-dto'
+import {JournalArrayServiceDto} from '../dto/service-dto/journal-dto'
 import {JournalExtService} from '../services/journal.service'
-import {Observable} from 'rxjs'
-import {Client, Transport, ClientProxy, MessagePattern, EventPattern} from '@nestjs/microservices'
 @ApiUseTags('journal 日志请求接口')
 @Controller('journal')
 export class JournalController {

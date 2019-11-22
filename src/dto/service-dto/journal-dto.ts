@@ -1,4 +1,4 @@
-import {IsInt, Min, Max, IsDate, MinLength, IsString} from 'class-validator'
+import {IsDate, MinLength, IsString} from 'class-validator'
 import {Type} from 'class-transformer'
 import {ApiModelProperty} from '@nestjs/swagger'
 export class JournalServiceDto {

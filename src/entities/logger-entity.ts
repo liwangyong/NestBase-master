@@ -1,7 +1,6 @@
 import {Entity, Column, PrimaryGeneratedColumn, Index} from 'typeorm'
 import {Incorrect} from '../constants/incorrect-constants'
 import {BasicEntity} from './basics/basics-entity'
-// console.log(typeorm);
 @Entity()
 export class LoggerExtEntity extends BasicEntity {
 	@PrimaryGeneratedColumn('uuid') // 主键

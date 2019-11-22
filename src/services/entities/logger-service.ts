@@ -1,24 +1,39 @@
-import { Injectable } from '@nestjs/common'
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
-import { LoggerExtEntity } from '../../entities/logger-entity'
+import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { LoggerExtEntity } from '../../entities/logger-entity';
+import { getConnection } from 'typeorm';
+import { JournalServiceDto } from '../../dto/service-dto/journal-dto';
 @Injectable()
 export class LoggerExtService {
   constructor(
     @InjectRepository(LoggerExtEntity)
     private readonly loggerExtEntity: Repository<LoggerExtEntity>,
-  ) { }
+  ) {}
   findAll(argsSearch?: any): Promise<LoggerExtEntity[]> {
-    return this.loggerExtEntity.find()
+    return this.loggerExtEntity.find();
   }
   findOne(argsSearch: any = {}): Promise<LoggerExtEntity> {
-    return this.loggerExtEntity.findOne(argsSearch)
+    return this.loggerExtEntity.findOne(argsSearch);
   }
-	/**
-	 * 根据记录Uuid（主键）查找日志
-	 * @param uuid 日志Uuid（主键）
-	 */
+  /**
+   * 根据记录Uuid（主键）查找日志
+   * @param uuid 日志Uuid（主键）
+   */
   async findByUuid(uuid: string): Promise<LoggerExtEntity> {
-    return await this.loggerExtEntity.findOne({ uuid })
+    return await this.loggerExtEntity.findOne({ uuid });
+  }
+  /**
+   * 批量insert数据
+   * @bulkData uuid 日志Uuid（主键）
+   */
+  batchEventInsert(bulkData: JournalServiceDto[]) {
+    console.log(bulkData)
+    return this.loggerExtEntity
+      .createQueryBuilder()
+      .insert()
+      .into(LoggerExtEntity)
+      .values(bulkData)
+      .execute();
   }
 }

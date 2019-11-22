@@ -1,10 +1,10 @@
 import {Module} from '@nestjs/common'
 import {JournalExtService} from '../services/journal.service'
 import {JournalController} from '../controllers/journal.controller'
-import { RabbitMqServer } from '../services/microService/rabbitmq-server'
+import { RabbitMqMicroService } from '../services/microService/rabbitmq-server'
 @Module({
 	imports: [],
 	controllers: [JournalController],
-	providers: [JournalExtService, RabbitMqServer],
+	providers: [JournalExtService, RabbitMqMicroService],
 })
 export class JournalModule {}

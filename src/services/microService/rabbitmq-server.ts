@@ -1,11 +1,11 @@
 import { HttpException, Injectable, Inject } from '@nestjs/common';
-import { JournalArrayServiceDto } from '../../dto/service-dto/journal-dto';
+import { JournalServiceDto } from '../../dto/service-dto/journal-dto';
 import * as amqp from 'amqplib/callback_api';
 import { env } from '../../until/env-unit';
 import { ConfigService } from 'nestjs-config';
 import { LoggerExtService } from '../../services/entities/logger-service';
 @Injectable()
-export class RabbitMqServer {
+export class RabbitMqMicroService {
     amqp: ConfigService = amqp;
     channelSendToQueue: any;
     queue: string = 'guest';
@@ -14,6 +14,7 @@ export class RabbitMqServer {
         private readonly loggerExtService: LoggerExtService,
     ) {}
     onModuleInit() {
+        console.log(4444)
         this.Initialization();
     }
     // 连接
@@ -38,18 +39,27 @@ export class RabbitMqServer {
         channel.consume(queue, this.channelConsume.bind(this), {
             noAck: true,
         });
+        console.log(98999),
         this.channelSendToQueue = channel.sendToQueue.bind(channel);
         global['rabbitMqSend'] = channel.sendToQueue.bind(channel);
         });
     }
     // 监听队列
     async channelConsume(ctn: any) {
-        const msg = ctn.content.toString();
-        const data = await this.loggerExtService.findAll();
-        console.log(' [x] Received %s', JSON.parse(msg), data);
+        const msg: string = ctn.content.toString();
+        const data: JournalServiceDto[] = JSON.parse(msg)
+        console.log(data)
+        if (data instanceof Array) {
+            try {
+                await this.loggerExtService.batchEventInsert(data)
+            } catch (err) {
+                console.log('数据库更新失败', err)
+            }
+        }
     }
     // 发送队列
-    rabSendToQueue(msg: JournalArrayServiceDto) {
+    rabSendToQueue(msg: JournalServiceDto[]) {
+        console.log('111', this.channelSendToQueue, msg)
         this.channelSendToQueue(this.queue, Buffer.from(JSON.stringify(msg)));
     }
 }

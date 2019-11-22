@@ -8,7 +8,7 @@ import { LoggerExtService } from '../../services/entities/logger-service';
 export class RabbitMqMicroService {
     amqp: ConfigService = amqp;
     channelSendToQueue: any;
-    queue: string = 'guest';
+    queue: string = env('NEST_QUEUE');
     constructor(
         @Inject(LoggerExtService)
         private readonly loggerExtService: LoggerExtService,

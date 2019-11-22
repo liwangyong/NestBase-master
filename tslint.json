@@ -12,7 +12,7 @@
 		"ordered-imports": [false],
 		"semicolon": [false, "never", "ignore-interfaces"],
 		"max-line-length": [true, 150],
-		"indent": [false, "tab", 4],
+		"indent": [false, "tabs", 4],
 		"member-ordering": [false],
 		"max-classes-per-file": [false],
 		"no-console": false,

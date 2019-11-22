@@ -7,18 +7,19 @@ import { EntityModule } from './modules/entity/logger.module';
 import { LoggerExtEntity } from './entities/logger-entity';
 import { JournalModule } from './modules/journal.module';
 import { LoggerSubscriber } from './entities/subscriber/logger-subscriber';
+import { env } from './until/env-unit';
 // 注意，这里路径要指向存放配置文件的config文件夹
 @Module({
   imports: [
     EntityModule,
     JournalModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123456',
-      database: 'nestjs', // 数据库名称
+      type: env('NEST_LIBRARY'),
+      host: env('NEST_LIBRARY_HOST'),
+      port: Number(env('NEST_LIBRARY_HOST')),
+      username: env('NEST_USERNAME'),
+      password: env('NEST_PASSWORD'),
+      database: env('NEST_DATABASE'), // 数据库名称
       entities: [LoggerExtEntity], // 表集合
       subscribers: [LoggerSubscriber],
       synchronize: true,

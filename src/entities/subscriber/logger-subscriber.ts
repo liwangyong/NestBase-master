@@ -12,7 +12,7 @@ export class LoggerSubscriber
     return LoggerExtEntity;
   }
 
-  beforeInsert(event: InsertEvent<LoggerExtEntity>): Promise<any> | void | any {
+  beforeInsert(event: InsertEvent<LoggerExtEntity>): Promise<LoggerExtEntity> | void | any {
     console.log('插入之前', event.entity);
     return event.entity
   }

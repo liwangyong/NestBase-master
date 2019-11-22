@@ -15,6 +15,7 @@ export class JournalController {
 	@ApiOkResponse({description: '回调成功/失败', type: ResultSend})
 	@Post()
 	async sendJournal(@Body() req: JournalArrayServiceDto): Promise<ResultSend> {
+        // rabbit 发送
 		this.journalExtService.rabbitService(req.data)
 		return {code: 200, message: 'success', content: null}
 	}

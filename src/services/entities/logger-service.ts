@@ -28,7 +28,6 @@ export class LoggerExtService {
    * @bulkData uuid 日志Uuid（主键）
    */
   batchEventInsert(bulkData: JournalServiceDto[]) {
-    console.log(bulkData)
     return this.loggerExtEntity
       .createQueryBuilder()
       .insert()

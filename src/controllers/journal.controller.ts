@@ -13,7 +13,7 @@ export class JournalController {
 	) {}
 	@ApiOperation({title: '发送日志'})
 	@ApiOkResponse({description: '回调成功/失败', type: ResultSend})
-	@Post()
+	@Post('/upload')
 	async sendJournal(@Body() req: JournalArrayServiceDto): Promise<ResultSend> {
         // rabbit 发送
 		this.journalExtService.rabbitService(req.data)

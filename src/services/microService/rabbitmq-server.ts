@@ -38,7 +38,9 @@ export class RabbitMqMicroService {
         channel.consume(queue, this.channelConsume.bind(this), {
             noAck: true,
         });
+        // 当前实列方法
         this.channelSendToQueue = channel.sendToQueue.bind(channel);
+        // 全局方法
         global['rabbitMqSend'] = channel.sendToQueue.bind(channel);
         });
     }

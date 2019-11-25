@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EntityModule } from './modules/entity/logger.module';
 import { LoggerExtEntity } from './entities/logger-entity';
 import { JournalModule } from './modules/journal.module';
-import { LoggerModule } from './modules/nest-logger-module'
+import { NestLoggerModule } from './modules/nest-logger-module'
 import { LoggerSubscriber } from './entities/subscriber/logger-subscriber';
 import { env } from './until/env-unit';
 import * as path from 'path';
@@ -14,7 +14,7 @@ import * as path from 'path';
   imports: [
     EntityModule,
     JournalModule,
-    LoggerModule,
+    NestLoggerModule,
     TypeOrmModule.forRoot({
       type: env('NEST_LIBRARY'),
       host: env('NEST_LIBRARY_HOST'),

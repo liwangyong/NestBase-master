@@ -3,7 +3,7 @@
  */
 export const enum Incorrect {
   // 无
-  Trace = '1',
+  Common = '1',
   // debug
   Debug = '2',
   // 普通

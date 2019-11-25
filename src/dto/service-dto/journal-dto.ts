@@ -9,7 +9,7 @@ export class JournalServiceDto {
   @ApiModelProperty({ description: '生成时间', example: new Date().getTime() })
   @IsNotEmpty()
   @IsInt()
-  readonly createdTime: Date;
+  readonly createdTime: number;
   @ApiModelProperty({ description: '错误地址/接口', example: 'www.text.com' })
   @IsString()
   @IsNotEmpty()

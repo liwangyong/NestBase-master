@@ -16,6 +16,7 @@
 		"member-ordering": [false],
 		"max-classes-per-file": [false],
 		"no-console": false,
+		"no-string-literal": false,
 		"interface-name": [false],
 		"no-unused-expression": false,
 		"arrow-parens": false,

@@ -10,19 +10,26 @@ export class LoggerExtService {
     private readonly loggerExtEntity: Repository<LoggerExtEntity>,
   ) { }
   findAll(argsSearch?: any): Promise<LoggerExtEntity[]> {
-    return this.loggerExtEntity.find();
+    return this.loggerExtEntity.find(argsSearch);
   }
   /**
    * 批量insert数据
-   * @bulkData uuid 日志Uuid（主键）
+   * @bulkData 批量数据
    */
-  batchEventInsert(bulkData: JournalServiceDto[]) {
-    return this.loggerExtEntity
+  async batchEventInsert(bulkData: JournalServiceDto[]): Promise<any> {
+    return await this.loggerExtEntity
       .createQueryBuilder()
       .insert()
       .into(LoggerExtEntity)
       .values(bulkData)
       .execute();
+  }
+  /**
+   * nestjs 内部 logger 存储
+   * @data data
+   */
+  async nestLoggerSave(data: JournalServiceDto): Promise<any> {
+    return await this.loggerExtEntity.save(data)
   }
   /**
    * where AND count

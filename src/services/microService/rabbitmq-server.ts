@@ -52,7 +52,7 @@ export class RabbitMqMicroService {
             try {
                 await this.loggerExtService.batchEventInsert(data)
             } catch (err) {
-                console.log('数据库更新失败', err)
+                console.info(`\x1B[31m数据库保存失败\x1B[0m`)
             }
         }
     }

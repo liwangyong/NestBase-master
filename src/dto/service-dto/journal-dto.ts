@@ -1,25 +1,26 @@
-import { IsDate, IsString, IsArray } from 'class-validator';
+import { IsString, IsArray, ValidateNested, ArrayMinSize, IsInstance, IsInt, IsNotEmpty} from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 export class JournalServiceDto {
   @ApiModelProperty({ description: '日志等级', example: '1' })
   @IsString()
-  @Type(() => String)
+  @IsNotEmpty()
   readonly level: string;
   @ApiModelProperty({ description: '生成时间', example: new Date().getTime() })
-  @IsDate()
+  @IsNotEmpty()
+  @IsInt()
   readonly createdTime: Date;
   @ApiModelProperty({ description: '错误地址/接口', example: 'www.text.com' })
   @IsString()
-  @Type(() => String)
+  @IsNotEmpty()
   readonly url: string;
   @ApiModelProperty({ description: '错误执行人', example: 'session' })
   @IsString()
-  @Type(() => String)
+  @IsNotEmpty()
   readonly operator: string;
   @ApiModelProperty({ description: '错误内容', example: '错误' })
   @IsString()
-  @Type(() => String)
+  @IsNotEmpty()
   readonly content: string;
 }
 export class JournalArrayServiceDto {
@@ -27,7 +28,11 @@ export class JournalArrayServiceDto {
     description: '错误内容数组集合',
     type: [JournalServiceDto],
   })
-  @Type(() => Array)
   @IsArray()
+  @ValidateNested({each: true})
+  @Type(() => JournalServiceDto)
+  @IsNotEmpty()
+  @ArrayMinSize(1, {message: '日志提交最起码一条'})
+  @IsInstance(JournalServiceDto, {each: true})
   readonly data: JournalServiceDto[];
 }

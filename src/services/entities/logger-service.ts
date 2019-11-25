@@ -12,16 +12,6 @@ export class LoggerExtService {
   findAll(argsSearch?: any): Promise<LoggerExtEntity[]> {
     return this.loggerExtEntity.find();
   }
-  findOne(argsSearch: any = {}): Promise<LoggerExtEntity> {
-    return this.loggerExtEntity.findOne(argsSearch);
-  }
-  /**
-   * 根据记录Uuid（主键）查找日志
-   * @param uuid 日志Uuid（主键）
-   */
-  async findByUuid(uuid: string): Promise<LoggerExtEntity> {
-    return await this.loggerExtEntity.findOne({ uuid });
-  }
   /**
    * 批量insert数据
    * @bulkData uuid 日志Uuid（主键）

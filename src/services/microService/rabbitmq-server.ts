@@ -32,8 +32,9 @@ export class RabbitMqMicroService {
             throw new HttpException({ error: '连接rabbit失败' }, 500);
         }
         const { queue } = this;
+        // woker 挂掉 不要丢掉进程
         channel.assertQueue(queue, {
-            durable: false,
+            durable: true,
         });
         channel.consume(queue, this.channelConsume.bind(this), {
             noAck: true,
@@ -58,6 +59,7 @@ export class RabbitMqMicroService {
     }
     // 发送队列
     rabSendToQueue(msg: JournalServiceDto[]) {
-        this.channelSendToQueue(this.queue, Buffer.from(JSON.stringify(msg)));
+      // 配置persistent 消息持久化
+        this.channelSendToQueue(this.queue, Buffer.from(JSON.stringify(msg)), {persistent: true});
     }
 }

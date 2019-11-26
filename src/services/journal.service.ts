@@ -11,6 +11,7 @@ export class JournalExtService {
     private readonly rabbitMqMicroService: RabbitMqMicroService,
     private readonly loggerExtService: LoggerExtService,
   ) { }
+  // 发送 rabbit
   async rabbitService(data: JournalServiceDto[]): Promise<ResultSend> {
     if (data instanceof Array) {
       try {
@@ -20,18 +21,25 @@ export class JournalExtService {
         throw {
           code: 400,
           message: 'error',
-          content: null,
+          content: '存储失败',
         };
       }
     }
   }
   async getScreeningData(query: PagePullOuting): Promise<PageResultSend> {
     const { pageIndex, pageSize, screening } = query
+    const whereTerm = new Object()
+    if (screening instanceof Object) {
+      for (const i in screening) {
+        whereTerm[i] = screening[i]
+      }
+    }
     const obj = {
-      take: Number(pageSize),
+      take: pageSize,
       skip: (pageIndex - 1) * pageSize,
-      where: screening,
-      order: { createdTime: SortType['ASC'] }
+      select: ['uuid', 'content', 'url', 'operator', 'level', 'createdTime'],
+      where: Object.assign({ deleted: false }, whereTerm),
+      order: { createdTime: SortType['ASC'] },
     }
     try {
       const [content, total] = await this.loggerExtService.pagingQueryMany(obj)
@@ -40,8 +48,7 @@ export class JournalExtService {
       throw {
         code: 400,
         message: 'error',
-        content: null,
-        total: 0,
+        content: '查询失败',
       }
     }
   }

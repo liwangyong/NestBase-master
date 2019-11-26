@@ -10,24 +10,36 @@ export class MyLogger extends Logger {
   }
   error(msg: string, trace: string) {
     const error = this.defaultReturn(msg)
-    this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Error'] }, error))
+    console.info(`\x1B[31m${msg}\x1B[0m`)
+    try {
+      this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Error'] }, error))
+    } catch (err) {}
   }
   log(msg: string) {
     const log = this.defaultReturn(msg)
-    this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Info'] }, log))
+    console.info(`\x1B[2m${msg}\x1B[0m`)
+    try {
+      this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Info'] }, log))
+    } catch (err) {}
   }
   warn(msg: string) {
     const warn = this.defaultReturn(msg)
-    this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Warning'] }, warn))
+    console.info(`\x1B[33m${msg}\x1B[0m`)
+    try {
+      this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Warning'] }, warn))
+    } catch (err) {}
   }
   debug(msg: string) {
     const debug = this.defaultReturn(msg)
-    this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Debug'] }, debug))
+    console.info(`\x1B[37m${msg}\x1B[0m`)
+    try {
+      this.loggerExtService.nestLoggerSave(Object.assign({ level: Incorrect['Debug'] }, debug))
+    } catch (err) {}
   }
   defaultReturn(content: string) {
     return {
       createdTime: new Date().getTime(),
-      url: 'hostMachine',
+      url: 'http://localhost:4000/',
       operator: 'host',
       content,
     }

@@ -1,4 +1,4 @@
-import { IsString, IsArray, ValidateNested, ArrayMinSize, IsInstance, IsInt, IsNotEmpty} from 'class-validator';
+import { IsString, IsArray, ValidateNested, ArrayMinSize, IsInstance, IsInt, IsNotEmpty, IsFQDN } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 export class JournalServiceDto {
@@ -11,7 +11,7 @@ export class JournalServiceDto {
   @IsInt()
   readonly createdTime: number;
   @ApiModelProperty({ description: '错误地址/接口', example: 'www.text.com' })
-  @IsString()
+  @IsFQDN()
   @IsNotEmpty()
   readonly url: string;
   @ApiModelProperty({ description: '错误执行人', example: 'session' })
@@ -25,7 +25,7 @@ export class JournalServiceDto {
 }
 export class JournalArrayServiceDto {
   @ApiModelProperty({
-    description: '错误内容数组集合',
+    description: '错误内容数组集合, length > 0',
     type: [JournalServiceDto],
   })
   @IsArray()

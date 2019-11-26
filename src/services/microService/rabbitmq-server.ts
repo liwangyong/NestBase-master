@@ -4,6 +4,7 @@ import * as amqp from 'amqplib/callback_api';
 import { env } from '../../until/env-unit';
 import { ConfigService } from 'nestjs-config';
 import { LoggerExtService } from '../../services/entities/logger-service';
+import { writeFilePromise } from '../../until/logger-json-unit'
 @Injectable()
 export class RabbitMqMicroService {
   // amqp 服务
@@ -64,6 +65,7 @@ export class RabbitMqMicroService {
       try {
         await this.loggerExtService.batchEventInsert(data)
       } catch (err) {
+        writeFilePromise(data)
         console.info(`\x1B[31m数据库保存失败\x1B[0m`)
       }
     }

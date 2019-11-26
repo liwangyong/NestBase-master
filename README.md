@@ -11,3 +11,5 @@ nestjs 通用基础框架(祖传代码)
 异常 分等级level createdTime url operator(操作者) 加索引
 
 性能 按照 createdTime 存储
+
+存储失败写入json文件 开启定时任务 每天0点 写入数据库

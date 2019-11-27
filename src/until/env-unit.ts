@@ -23,10 +23,4 @@ const frontValue = <T>(
 };
 
 export const env = (key: string, defaultValue: any = '') =>
-  frontValue(key, defaultValue, value => value);
-
-export const envNumber = (key: string, defaultValue: number = 0) =>
-    frontValue(key, defaultValue, value => Number(value));
-
-export const envBoolean = (key: string, defaultValue: boolean = false) =>
-  frontValue(key, defaultValue, value => value === 'true');
+  frontValue(key, defaultValue, value => value)

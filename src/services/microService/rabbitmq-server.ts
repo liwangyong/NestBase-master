@@ -66,7 +66,7 @@ export class RabbitMqMicroService {
         await this.loggerExtService.batchEventInsert(data)
       } catch (err) {
         writeFilePromise(data)
-        console.info(`\x1B[31m数据库保存失败\x1B[0m`)
+        console.info(`\x1B[31m队列数据库保存失败${err}\x1B[0m`)
       }
     }
   }

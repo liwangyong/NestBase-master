@@ -1,16 +1,15 @@
 import { Controller, Get, Inject, Post, Body, UsePipes, Query } from '@nestjs/common'
 import { ApiUseTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger'
-import { LoggerExtService } from '../services/entities/logger-service'
 import { ResultSend } from '../dto/result-dto'
 import { JournalArrayServiceDto } from '../dto/service-dto/journal-dto'
 import { JournalExtService } from '../services/journal.service'
-import { JournalValidationPipe } from './pipe/journal-pipe'
+import { JournalValidationPipe } from './pipe/default-pipe'
 import { PagePullOuting, PageResultSend } from '../dto/service-dto/journal-get-dto'
 @ApiUseTags('journal 日志请求接口')
 @Controller('journal')
 export class JournalController {
   constructor(
-    @Inject(JournalExtService) private readonly journalExtService: JournalExtService,
+    private readonly journalExtService: JournalExtService,
   ) { }
   @ApiOperation({ title: '发送日志' })
   @ApiOkResponse({ description: '回调成功/失败', type: ResultSend })

@@ -8,7 +8,6 @@ async function bootstrap() {
   })
   app.enableCors()
   PreInit.prototype.generatorSwagger(app)
-  await app.startAllMicroservicesAsync()
   await app.listen(env('NEST_PORT') || 4000)
   console.info(`\x1B[32m${env('NEST_PORT') || 4000} Nest Project begin\x1B[0m`)
 }

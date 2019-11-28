@@ -22,5 +22,12 @@ const frontValue = <T>(
   return callback(value);
 };
 
+/**
+ * 提取环境变量
+ * @date 2019-11-28
+ * @param {string} key 环境变量的键值
+ * @param {any} defaultValue:any='默认值'
+ * @returns {any} 映射值 || 默认值
+ */
 export const env = (key: string, defaultValue: any = '') =>
   frontValue(key, defaultValue, value => value)

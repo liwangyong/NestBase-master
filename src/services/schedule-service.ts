@@ -9,6 +9,11 @@ export class ScheduleService extends NestSchedule {
     private readonly loggerExtService: LoggerExtService,
   ) { super() }
   @Cron('0 0 0 * * *')
+  /**
+   * 定时任务 读取json 存入数据库
+   * @date 2019-11-28
+   * @returns {Boolean} 是否中断定时任务
+   */
   async cronJob() {
     const readData: JournalServiceDto[] = readResult()
     if (readData.length) {

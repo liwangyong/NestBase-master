@@ -15,6 +15,7 @@ export class RabbitMqMicroService {
   queue: string = env('NEST_QUEUE');
   // amqp 连接实列
   connection: any
+  count: number = 0
   constructor(
     private readonly loggerExtService: LoggerExtService,
   ) { }
@@ -29,18 +30,19 @@ export class RabbitMqMicroService {
   }
   // 连接
   Initialization() {
+    this.count ++
     this.amqp.connect(env('NEST_RABBITMQ'), this.createChannel.bind(this));
   }
   // 连接回调
   createChannel(j, connection) {
     if (j) {
-      setTimeout(() => this.Initialization(), 300);
+      this.count < 4 && setTimeout(() => this.Initialization(), 300);
       console.info(`\x1B[31m连接rabbit失败\x1B[0m`)
     }
     this.connection = connection
     connection.createChannel((k, channel) => {
       if (k) {
-        setTimeout(() => this.Initialization(), 300);
+        this.count < 4 && setTimeout(() => this.Initialization(), 300);
         console.info(`\x1B[31m连接rabbit失败\x1B[0m`)
       }
       const { queue } = this;
@@ -51,6 +53,7 @@ export class RabbitMqMicroService {
       channel.consume(queue, this.channelConsume.bind(this), {
         noAck: true,
       });
+      console.info(`\x1B[32mRabbitMq Connect begin\x1B[0m`)
       // 当前实列方法
       this.channelSendToQueue = channel.sendToQueue.bind(channel);
       // 全局方法

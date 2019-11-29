@@ -5,16 +5,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 export class PreInit {
   /**
-   * 描述 生成swagger
+   * 描述 生成swagger 等中间件
    * @param {any} app:Nest实列
-   * @returns {any} swagger
    */
   generatorMiddle(app: INestApplication) {
     app.use(
       rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
         max: 100, // limit each IP to 100 requests per windowMs
-      }))
+    }))
     app.use(helmet())
     app.enableCors()
     app.use(compression());

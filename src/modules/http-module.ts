@@ -9,6 +9,6 @@ import { HttpsService } from '../services/http-service'
     timeout: 5000,
   })],
   providers: [HttpsService],
-  exports: [HttpsService]
+  exports: [HttpsService],
 })
-export class HttpsModule { }
+export class HttpsModule {}

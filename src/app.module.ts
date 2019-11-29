@@ -7,7 +7,6 @@ import { HttpsModule } from './modules/http-module'
 import { EntityModule } from './modules/entity/logger.module';
 import { LoggerExtEntity } from './entities/logger-entity';
 import { JournalModule } from './modules/journal.module';
-import { NestLoggerModule } from './modules/nest-logger-module'
 import { LoggerSubscriber } from './entities/subscriber/logger-subscriber';
 import { HttpExceptionFilter } from './interceptors/errors.interceptor'
 import { ScheduleModules } from './modules/schedule-module'
@@ -20,7 +19,6 @@ import { env } from './until/env-unit';
     JournalModule,
     LoginModule,
     HttpsModule,
-    NestLoggerModule,
     TypeOrmModule.forRoot({
       type: env('NEST_LIBRARY'),
       host: env('NEST_LIBRARY_HOST'),

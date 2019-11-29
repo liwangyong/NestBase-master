@@ -9,7 +9,7 @@ export class LoggerExtEntity extends BasicEntity {
   @Column({ type: 'varchar', comment: '错误等级', default: Incorrect.Info })
   level: string
   @Index()
-  @Column({ type: 'bigint', comment: '创建时间' })
+  @Column({ type: 'bigint', comment: '创建时间', default: new Date().getTime()})
   createdTime: Date
   @Index()
   @Column({ type: 'varchar', comment: '错误地址/接口' })

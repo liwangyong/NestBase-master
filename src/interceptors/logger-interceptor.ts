@@ -5,6 +5,12 @@ import { green, yellow } from 'colors';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
+  /**
+   * 记录输出
+   * @date 2019-11-30
+   * @param {any} context:返回体
+   * @param {any} next:CallHandlr
+   */
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const { url, method } = context.switchToHttp().getRequest()
     const now = Date.now();

@@ -6,7 +6,7 @@ import * as compression from 'compression';
 export class PreInit {
   /**
    * 描述 生成swagger 等中间件
-   * @param {any} app:Nest实列
+   * @param {Nest} app:Nest实列
    */
   generatorMiddle(app: INestApplication) {
     app.use(

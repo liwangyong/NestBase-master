@@ -15,6 +15,6 @@ export class LoggerSubscriber
     return event.entity
   }
   afterInsert(event: InsertEvent<LoggerExtEntity>): Promise<any> | void {
-    console.info(`\x1B[34mContent插入成功\x1B[0m`)
+    // console.info(`\x1B[34mContent插入成功\x1B[0m`)
   }
 }

@@ -27,9 +27,7 @@ export class JournalExtService {
     }
   }
   async getScreeningData(query: PagePullOuting): Promise<PageResultSend> {
-    let { pageIndex, pageSize, screening } = query
-    pageIndex = Number(pageIndex) || null
-    pageSize = Number(pageSize) || null
+    const { pageIndex, pageSize, screening} = query
     const whereTerm = new Object()
     if (screening instanceof Object) {
       for (const i in screening) {

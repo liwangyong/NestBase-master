@@ -18,7 +18,7 @@ export class PreInit {
       }))
     log4js.configure(logger)
     app.use(log4js.connectLogger(log4js.getLogger('info'), {
-      format: '[:remote-addr :method :url :status :response-timems][:referrer HTTP/:http-version :user-agent]'
+      format: '[:remote-addr :method :url :status :response-timems][:referrer HTTP/:http-version :user-agent]',
     }))
     app.use(helmet())
     app.enableCors()

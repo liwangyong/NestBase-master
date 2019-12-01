@@ -18,7 +18,7 @@ export class LoggingInterceptor implements NestInterceptor {
       .handle()
       .pipe(
         timeout(5000),
-        tap(() => console.log(`${green('[Nest Response]')} - ${new Date()}- ${yellow('[Router]')} ${green(url + '/' + method)} ${yellow(String(Date.now() - now) + 'ms')}`)),
+        tap(() => console.log(`${green('[Nest Response]')} - ${new Date().toLocaleString()}- ${yellow('[Router]')} ${green(url + '/' + method)} ${yellow(String(Date.now() - now) + 'ms')}`)),
         catchError((err) => {
           console.log(err)
           return throwError(err)

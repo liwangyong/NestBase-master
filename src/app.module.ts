@@ -8,6 +8,7 @@ import { LoggingInterceptor } from './interceptors/logger-interceptor'
 import { EntityModule } from './modules/entity/logger.module';
 import { LoggerExtEntity } from './entities/logger-entity';
 import { JournalModule } from './modules/journal.module';
+import { LoggersModules } from './modules/logger-module'
 import { LoggerSubscriber } from './entities/subscriber/logger-subscriber';
 import { HttpExceptionFilter } from './interceptors/errors-interceptor'
 import { ScheduleModules } from './modules/schedule-module'
@@ -16,6 +17,7 @@ import { env } from './until/env-unit';
 @Module({
   imports: [
     EntityModule,
+    LoggersModules,
     ScheduleModules,
     JournalModule,
     LoginModule,

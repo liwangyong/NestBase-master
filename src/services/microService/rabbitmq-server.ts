@@ -3,6 +3,7 @@ import { JournalServiceDto } from '../../dto/service-dto/journal-dto';
 import * as amqp from 'amqplib/callback_api';
 import { env } from '../../until/env-unit';
 import { ConfigService } from 'nestjs-config';
+import { Loggers } from '../logger-service'
 import { LoggerExtService } from '../../services/entities/logger-service';
 import { writeFilePromise } from '../../until/logger-json-unit'
 @Injectable()
@@ -18,6 +19,7 @@ export class RabbitMqMicroService {
   count: number = 0
   constructor(
     private readonly loggerExtService: LoggerExtService,
+    @Inject('Loggers') private readonly loggers: Loggers,
   ) { }
   onModuleInit() {
     this.Initialization();
@@ -37,12 +39,14 @@ export class RabbitMqMicroService {
   createChannel(j, connection) {
     if (j) {
       this.count < 4 && setTimeout(() => this.Initialization(), 300);
+      this.loggers.error('连接rabbit失败', String(this.count))
       console.info(`\x1B[31m连接rabbit失败\x1B[0m`)
     }
     this.connection = connection
     connection.createChannel((k, channel) => {
       if (k) {
         this.count < 4 && setTimeout(() => this.Initialization(), 300);
+        this.loggers.error('连接rabbit失败', String(this.count))
         console.info(`\x1B[31m连接rabbit失败\x1B[0m`)
       }
       const { queue } = this;
@@ -69,6 +73,7 @@ export class RabbitMqMicroService {
         await this.loggerExtService.batchEventInsert(data)
       } catch (err) {
         writeFilePromise(data)
+        this.loggers.error('队列数据库保存失败', err)
         console.info(`\x1B[31m队列数据库保存失败${err}\x1B[0m`)
       }
     }

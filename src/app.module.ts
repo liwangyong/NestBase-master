@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { Connection } from 'typeorm';
-import { ConfigModule } from 'nestjs-config';
+import { RolesGuard } from './guards/roles-guard'
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { HttpsModule } from './modules/http-module'
 import { LoggingInterceptor } from './interceptors/logger-interceptor'
 import { EntityModule } from './modules/entity/logger.module';
 import { LoggerExtEntity } from './entities/logger-entity';
@@ -21,7 +21,6 @@ import { env } from './until/env-unit';
     ScheduleModules,
     JournalModule,
     LoginModule,
-    HttpsModule,
     TypeOrmModule.forRoot({
       type: env('NEST_LIBRARY'),
       host: env('NEST_LIBRARY_HOST'),
@@ -39,6 +38,10 @@ import { env } from './until/env-unit';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     {
       provide: APP_INTERCEPTOR,

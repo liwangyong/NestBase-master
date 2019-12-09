@@ -5,13 +5,13 @@ export class RolesGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const getRequest: Request | any = context.switchToHttp().getRequest();
     const cookie = getRequest.headers.cookie
-    const originalUrl = getRequest.originalUrl;
-    const whiteList = ['/login'];
+    const originalUrl = getRequest._parsedUrl.pathname;
+    const whiteList = ['/login', '/login/info'];
     if ([].includes.call(whiteList, originalUrl)) {
       return true
     }
     // 取出cookie
-    let sessionId: string = '';
+    let sessionId: string = '7ee7408926c3482db3fb6e849d1af3ce';
     [].some.call(cookie.split(';'), item => {
       const fixed = item.split('=')
       if (fixed[0] === 'sessionId') {
@@ -24,6 +24,6 @@ export class RolesGuard implements CanActivate {
     if (!Boolean(data.data)) {
       throw new UnauthorizedException();
     }
-    return false
+    return true
   }
 }

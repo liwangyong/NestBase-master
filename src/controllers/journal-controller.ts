@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UsePipes, Query, Headers} from '@nestjs/common'
+import { Controller, Get, Post, Body, UsePipes, Query} from '@nestjs/common'
 import { ApiUseTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger'
 import { ResultSend } from '../dto/result-dto'
 import { JournalArrayServiceDto } from '../dto/service-dto/journal-dto'

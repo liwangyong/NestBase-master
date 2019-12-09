@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { ResultSend } from '../dto/result-dto';
-export const accessToPrivate = async (sessionId: string): Promise<AxiosResponse> => {
+export const accessToPrivate = async (sessionId: string): Promise<any> => {
   return await axios({
     url: 'http://manage.yunlsp.com/unified/api/user/info',
     params: {

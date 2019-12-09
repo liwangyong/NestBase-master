@@ -30,7 +30,7 @@ import { env } from './until/env-unit';
       database: env('NEST_DATABASE'), // 数据库名称
       entities: [LoggerExtEntity], // 表集合
       subscribers: [LoggerSubscriber],
-      synchronize: true,
+      synchronize: false,
     }),
   ],
   controllers: [],

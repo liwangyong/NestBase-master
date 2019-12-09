@@ -1,4 +1,4 @@
-import { IsString, IsArray, ValidateNested, ArrayMinSize, IsInstance, IsInt, IsNotEmpty, IsFQDN, IsUrl} from 'class-validator';
+import { IsString, IsArray, ValidateNested, ArrayMinSize, IsInstance, IsInt, IsNotEmpty, IsFQDN} from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 export class JournalServiceDto {

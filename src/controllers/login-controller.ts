@@ -1,5 +1,5 @@
-import { Controller, Get, Inject, Post, Body, UsePipes, Query } from '@nestjs/common'
-import { ApiUseTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger'
+import { Controller, Get, Post, Body, UsePipes, Query } from '@nestjs/common'
+import { ApiUseTags, ApiOperation, ApiOkResponse, ApiImplicitQuery } from '@nestjs/swagger'
 import { ResultSend } from '../dto/result-dto'
 import { LoginService } from '../services/login-service'
 import { LoginServiceDto } from '../dto/service-dto/login-dto'
@@ -16,5 +16,18 @@ export class LoginController {
   @UsePipes(new JournalValidationPipe())
   async login(@Body() req: LoginServiceDto): Promise<ResultSend> {
     return await this.loginService.loginVerification(req)
+  }
+  @Get('/info')
+  @ApiImplicitQuery({
+    name: 'sessionId',
+    description: 'sessionId 拉取详细信息',
+    required: true,
+    type: String,
+  })
+  @ApiOperation({ title: '登录拉取详细信息' })
+  @ApiOkResponse({ description: '登录拉取详细信息', type: ResultSend })
+  // @UsePipes(new JournalValidationPipe())
+  async apiInfo(@Query() {sessionId}): Promise<ResultSend> {
+    return this.loginService.privateNews(sessionId)
   }
 }

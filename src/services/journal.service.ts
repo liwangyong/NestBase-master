@@ -39,13 +39,13 @@ export class JournalExtService {
         (i !== 'startTime' && i !== 'endTime') && (whereTerm[i] = screening[i])
       }
     }
+    whereTerm['createdTime'] = Between(Number(start), Number(end))
     const obj = {
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
       select: ['uuid', 'content', 'url', 'operator', 'level', 'createdTime'],
       where: Object.assign({ deleted: false }, whereTerm),
       order: { createdTime: SortType['DESC'] },
-      createdTime: Between(start, end),
     }
     try {
       const [content, total] = await this.loggerExtService.pagingQueryMany(obj)

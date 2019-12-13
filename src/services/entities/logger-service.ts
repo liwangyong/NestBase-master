@@ -35,9 +35,11 @@ export class LoggerExtService {
    * where AND count
    * @query 分页及筛选条件
    */
-  async pagingQueryMany(query): Promise<any> {
-    return await this.loggerExtEntity.findAndCount({
+  async pagingQueryMany(query): Promise<any[]> {
+    const [ctr, total] = await this.loggerExtEntity.findAndCount({take: 1})
+    const data = await this.loggerExtEntity.find({
       ...query,
     })
+    return [data, total]
   }
 }

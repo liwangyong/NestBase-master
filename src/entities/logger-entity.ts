@@ -10,7 +10,7 @@ export class LoggerExtEntity extends BasicEntity {
   level: string
   @Index()
   @Column({ type: 'bigint', comment: '创建时间', default: new Date().getTime()})
-  createdTime: Date
+  createdTime: number
   @Index()
   @Column({ type: 'varchar', comment: '错误地址/接口' })
   url: string

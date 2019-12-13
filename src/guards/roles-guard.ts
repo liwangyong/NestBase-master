@@ -6,23 +6,23 @@ export class RolesGuard implements CanActivate {
     const getRequest: Request | any = context.switchToHttp().getRequest();
     const cookie = getRequest.headers.cookie
     const originalUrl = getRequest._parsedUrl.pathname;
-    const whiteList = ['/login', '/login/info'];
+    const whiteList = ['/login'];
     if ([].includes.call(whiteList, originalUrl)) {
       return true
     }
     // 取出cookie
-    let sessionId: string = '7ee7408926c3482db3fb6e849d1af3ce';
+    let sessionId: string = '';
     [].some.call(cookie.split(';'), item => {
       const fixed = item.split('=')
-      if (fixed[0] === 'sessionId') {
+      if (fixed[0].trim() === 'sessionId') {
         sessionId = fixed[1]
         return true
       }
     })
-    if (!Boolean(sessionId)) throw new UnauthorizedException();
+    if (!sessionId) throw new UnauthorizedException({error: '没有权限, 请重新登录'});
     const { data } = await accessToPrivate(sessionId)
-    if (!Boolean(data.data)) {
-      throw new UnauthorizedException();
+    if (!data.data) {
+      throw new UnauthorizedException({error: '没有权限, 请重新登录'});
     }
     return true
   }

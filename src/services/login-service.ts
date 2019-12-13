@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { LoginServiceDto } from '../dto/service-dto/login-dto'
 import { ResultSend } from '../dto/result-dto';
+import { Response } from 'express';
 import { accessToPrivate } from '../until/private-information'
 import { loginPullOut } from '../until/private-information'
 
 @Injectable()
 export class LoginService {
-  async loginVerification(req: LoginServiceDto): Promise<ResultSend> {
-    const { account, password } = req
+  async loginVerification(reqBody: LoginServiceDto, res: Response): Promise<Response> {
+    const { account, password } = reqBody
     try {
-      const res = await loginPullOut(account, password)
-      const { msg, success } = res
+      const data = await loginPullOut(account, password)
+      const { msg, success } = data
       let code: number = 0
       let message: string = ''
       let content: string | any = ''
@@ -22,9 +23,12 @@ export class LoginService {
         message = 'error'
       }
       content = msg
-      return { code, message, content }
+      res.cookie('sessionId', content, {
+        maxAge: 86400000, httpOnly: true,
+      })
+      return res.json({ code, message, content })
     } catch (err) {
-      return { code: 400, message: 'error', content: '登录失败' }
+      return res.json({ code: 400, message: 'error', content: '登录失败' })
     }
   }
   /**

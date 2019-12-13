@@ -5,6 +5,7 @@ import { JournalServiceDto } from '../dto/service-dto/journal-dto';
 import { ResultSend } from '../dto/result-dto';
 import { PagePullOuting, PageResultSend } from '../dto/service-dto/journal-get-dto'
 import { SortType } from '../constants/incorrect-constants'
+import {Between} from 'typeorm';
 @Injectable()
 export class JournalExtService {
   constructor(
@@ -27,11 +28,15 @@ export class JournalExtService {
     }
   }
   async getScreeningData(query: PagePullOuting): Promise<PageResultSend> {
-    const { pageIndex, pageSize, screening} = query
+    const { pageIndex, pageSize, ...screening} = query
     const whereTerm = new Object()
+    let start = 0
+    let end = 0
     if (screening instanceof Object) {
       for (const i in screening) {
-        whereTerm[i] = screening[i]
+        i === 'startTime' && (start = screening[i]);
+        i === 'endTime' && (end = screening[i]);
+        (i !== 'startTime' && i !== 'endTime') && (whereTerm[i] = screening[i])
       }
     }
     const obj = {
@@ -39,7 +44,8 @@ export class JournalExtService {
       skip: (pageIndex - 1) * pageSize,
       select: ['uuid', 'content', 'url', 'operator', 'level', 'createdTime'],
       where: Object.assign({ deleted: false }, whereTerm),
-      order: { createdTime: SortType['ASC'] },
+      order: { createdTime: SortType['DESC'] },
+      createdTime: Between(start, end),
     }
     try {
       const [content, total] = await this.loggerExtService.pagingQueryMany(obj)

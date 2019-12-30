@@ -30,4 +30,4 @@ const frontValue = <T>(
  * @returns {any} 映射值 || 默认值
  */
 export const env = (key: string, defaultValue: any = '') =>
-  frontValue(key, defaultValue, value => value)
+  frontValue(key, defaultValue, value => value);

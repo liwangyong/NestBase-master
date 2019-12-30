@@ -3,11 +3,11 @@ import { Type } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 export class JournalServiceDto {
   @ApiModelProperty({ description: '日志等级', example: '1' })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({message: '必须是字符串'})
+  @IsNotEmpty({message: '等级不为空'})
   readonly level: string;
   @ApiModelProperty({ description: '生成时间', example: new Date().getTime() })
-  @IsNotEmpty()
+  @IsNotEmpty({message: '生成时间不为空'})
   @IsInt()
   readonly createdTime: number;
   @ApiModelProperty({ description: '错误地址/接口', example: 'www.text.com' })

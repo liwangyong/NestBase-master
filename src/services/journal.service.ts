@@ -6,6 +6,7 @@ import { ResultSend } from '../dto/result-dto';
 import { PagePullOuting, PageResultSend } from '../dto/service-dto/journal-get-dto'
 import { SortType } from '../constants/incorrect-constants'
 import {Between} from 'typeorm';
+import * as moment from 'moment'
 @Injectable()
 export class JournalExtService {
   constructor(
@@ -32,10 +33,12 @@ export class JournalExtService {
     const whereTerm = new Object()
     let start = 0
     let end = 0
+    const valueOf = moment(moment().subtract(1, 'days').startOf('day').format('YYYY-MM-DD HH:mm:ss')).valueOf()
     if (screening instanceof Object) {
       for (const i in screening) {
         i === 'startTime' && (start = screening[i]);
-        i === 'endTime' && (end = screening[i]);
+        // 控制区间时间
+        i === 'endTime' && (end = valueOf < screening[i] ? valueOf : screening[i]);
         (i !== 'startTime' && i !== 'endTime') && (whereTerm[i] = screening[i])
       }
     }
@@ -43,7 +46,7 @@ export class JournalExtService {
     const obj = {
       take: pageSize,
       skip: (pageIndex - 1) * pageSize,
-      select: ['uuid', 'content', 'url', 'operator', 'level', 'createdTime'],
+      select: ['uuid', 'content', 'url', 'operator', 'level', 'createdTime', 'ip', 'project'],
       where: Object.assign({ deleted: false }, whereTerm),
       order: { createdTime: SortType['DESC'] },
     }

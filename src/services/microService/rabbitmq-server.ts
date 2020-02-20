@@ -31,8 +31,10 @@ export class RabbitMqMicroService {
     try {
       this.connection = await amqp.connect(this.amqbHost);
       this.channel = await this.connection.createChannel();
+      // durable 消息持久化
       this.channel.assertQueue(queue, { durable: true });
       this.channel.consume(queue, this.channelConsume.bind(this), {
+        // 消费了就 清除 要不然就要ack 确认
         noAck: true,
       });
       console.info(`\x1B[32mRabbitMq Connect begin\x1B[0m`);
@@ -42,6 +44,7 @@ export class RabbitMqMicroService {
   }
   // 监听日志队列
   async channelConsume(ctn: any) {
+    this.channel.ack(ctn);
     const msg: string = ctn.content.toString();
     const data: JournalServiceDto[] = JSON.parse(msg);
     if (data instanceof Array) {

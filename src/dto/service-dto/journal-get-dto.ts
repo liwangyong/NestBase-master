@@ -26,11 +26,19 @@ export class PagePullOuting extends PagingReqDto {
   @ApiModelProperty({ description: '初始时间', required: false})
   @ValidateIf((body, item) => Boolean(item))
   @IsInt()
-  startTime: number
+  readonly startTime: number
   @ApiModelProperty({ description: '结束时间', required: false})
   @ValidateIf((body, item) => Boolean(item))
   @IsInt()
-  endTime: number
+  readonly endTime: number
+  @ApiModelProperty({ description: '项目名称', required: false })
+  @ValidateIf((body, item) => Boolean(item))
+  @IsString()
+  readonly project: string;
+  @ApiModelProperty({ description: '连接ip', required: false})
+  @ValidateIf((body, item) => Boolean(item))
+  @IsString()
+  ip: string;
 }
 export class PageResultSend extends ResultSend {
   @ApiModelPropertyOptional()

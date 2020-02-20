@@ -19,7 +19,7 @@ export class JournalExtService {
       try {
         this.rabbitMqMicroService.rabSendToQueue(data);
         return { code: 200, message: 'success', content: null };
-      } catch (Err) {
+      } catch (err) {
         throw {
           code: 400,
           message: 'error',

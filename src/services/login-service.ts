@@ -40,6 +40,7 @@ export class LoginService {
   async privateNews(sessionId: string): Promise<ResultSend> {
     try {
       const {data: res} = await accessToPrivate(sessionId)
+      console.log(res)
       const { success, data } = res
       let code: number = 0
       let message: string = ''

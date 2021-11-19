@@ -11,7 +11,7 @@ export const accessToPrivate = async (sessionId: string): Promise<any> => {
 export const loginPullOut = async (userName: string, password: string | number): Promise<any> => {
   const { data: res } = await axios({
     method: 'post',
-    url: 'http://manage.yunlsp.com/unified/doLogin',
+    url: 'http://baidu.com',
     params: {
       userName,
       password,

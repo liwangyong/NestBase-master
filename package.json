@@ -30,7 +30,7 @@
     "amqp-connection-manager": "^3.0.0",
     "amqplib": "^0.5.5",
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "colors": "^1.4.0",
     "compression": "^1.7.4",
     "express-rate-limit": "^5.0.0",
